@@ -109,3 +109,4 @@ server:
   port: 4003
   compress: true
   header: true
+  watch: true
