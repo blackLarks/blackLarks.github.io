@@ -28,11 +28,7 @@ Here I give some brief explanations about the communication system.
 
 ## Mapping Bits to Symbols
 
-As <a href="#fig2">Figure 2</a> shown, we can map every 2 consecutive bit sequence to a point on the constellation diagram.
-
-
-
-
+As <a href="#fig2">Figure 2</a> shown, we can map every 2 consecutive bit sequence to a point on the constellation diagram. A confusing problem for me is about the normalization of the consetllation diagram.
 
 # Monte Carlo method
 The basic performance is Bit Error Rate (BER), which can be expressed as $\Pr (\mathbf{u} \neq \hat{\mathbf{u}})$. In an implementation point-of-view, we need to find an approach with statistical confidence for simulation, taking into account the random transmitted signals and the random noise. 
