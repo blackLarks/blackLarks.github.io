@@ -13,11 +13,14 @@
 <meta property="og:site_name" content="Laurent&#39;s World">
 <meta property="og:description" content="This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here is Digital Communications by Proakis an">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blacklarks.github.io/img/CS/CS.svg">
+<meta property="og:image" content="https://blacklarks.github.io/img/CS/mapper.svg">
 <meta property="article:published_time" content="2025-01-28T08:27:50.000Z">
-<meta property="article:modified_time" content="2025-02-01T21:09:15.077Z">
+<meta property="article:modified_time" content="2025-02-01T22:53:58.527Z">
 <meta property="article:author" content="Laurent">
 <meta property="article:tag" content="Theory">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blacklarks.github.io/img/CS/CS.svg">
     
     
       
@@ -126,6 +129,10 @@
     </div>
     
     
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Brief-Principle"><span class="toc-number">1.</span> <span class="toc-text">Brief Principle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mapping-Bits-to-Symbols"><span class="toc-number">1.1.</span> <span class="toc-text">Mapping Bits to Symbols</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Monte-Carlo-method"><span class="toc-number">2.</span> <span class="toc-text">Monte Carlo method</span></a></li></ol>
+      </div>
+    
   </span>
 </div>
 
@@ -169,7 +176,33 @@
 
   <div class="content e-content" itemprop="articleBody">
     <p>This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here is <em>Digital Communications</em> by Proakis and <em>Wireless Communication Systems in Matlab</em> by Mathuranathan Viswanathan. You can also follow the MIT open course <a target="_blank" rel="noopener" href="https://ocw.mit.edu/courses/6-451-principles-of-digital-communication-ii-spring-2005/pages/readings-and-lecture-notes/">Principle of Digital Communication</a>.</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+<figure id="fig1" style="text-align: center">   
+    <img src="/img/CS/CS.svg" alt="Digital Communication System" style="width: 90%;">   	
+    <figcaption>
+    Figure 1: Block diagram of a typical digital communication system
+    </figcaption> 
+</figure>  
+
+<p><a href="#fig1">Figure 1</a> shows the basic structure of a digital communication system (Proakis). In this blog, I skip the Source encoder and Channel encoder. For simplexity, I assume that the information source generates random sequence binary bits, the channel is Additive white Gaussian noise (AWGN) Channel and QPSK with Gray labelling is applied (<a href="#fig2">Figure 2</a>).</p>
+<figure id="fig2" style="text-align: center">   
+    <img src="/img/CS/mapper.svg" alt="QPSK constellation diagram" style="width: 60%;">   	
+    <figcaption>
+    Figure 2: QPSK Constellation Diagram
+    </figcaption> 
+</figure>  
+
+<h1 id="Brief-Principle"><a href="#Brief-Principle" class="headerlink" title="Brief Principle"></a>Brief Principle</h1><p>Here I give some brief explanations about the communication system.</p>
+<h2 id="Mapping-Bits-to-Symbols"><a href="#Mapping-Bits-to-Symbols" class="headerlink" title="Mapping Bits to Symbols"></a>Mapping Bits to Symbols</h2><p>As <a href="#fig2">Figure 2</a> shown, we can map every 2 consecutive bit sequence to a point on the constellation diagram.</p>
+<h1 id="Monte-Carlo-method"><a href="#Monte-Carlo-method" class="headerlink" title="Monte Carlo method"></a>Monte Carlo method</h1><p>The basic performance is Bit Error Rate (BER), which can be expressed as $\Pr (\mathbf{u} \neq \hat{\mathbf{u}})$. In an implementation point-of-view, we need to find an approach with statistical confidence for simulation, taking into account the random transmitted signals and the random noise. </p>
+<p>A good solution is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo method</a> below. With the simulated results, we can conduct performance verification by comparing simulated and theoretical results.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Algorithm: MonteCarloSimulation</span><br><span class="line">Input: simulationParameters, systemParameters</span><br><span class="line">Output: simulationResults</span><br><span class="line"></span><br><span class="line">1: Initialize variables:</span><br><span class="line">   errorCount ← 0</span><br><span class="line">   processedBits ← 0</span><br><span class="line"></span><br><span class="line">2: for each SNR in snrRange do</span><br><span class="line">       while errorCount &lt; minErrorEvents do</span><br><span class="line">           data ← GenerateRandomBits(blockSize)</span><br><span class="line">           modulatedSignal ← ModulateData(data)</span><br><span class="line">           receivedSignal ← SimulateChannel(modulatedSignal, SNR)</span><br><span class="line">           decodedData ← DemodulateSignal(receivedSignal)</span><br><span class="line">           errorCount ← CountErrors(data, decodedData)</span><br><span class="line">       end while</span><br><span class="line">       </span><br><span class="line">       BER[SNR] ← errorCount/processedBits</span><br><span class="line">   end for</span><br><span class="line"></span><br><span class="line">3: return BER</span><br></pre></td></tr></table></figure>
+
+<p>The heart of the algorithm is the Main Simulation Loop, which operates at two levels:</p>
+<ul>
+<li>An outer loop that tests different SNR points</li>
+<li>An inner Monte Carlo loop that runs until we have statistical confidence in our results</li>
+</ul>
+
   </div>
 </article>
 
@@ -197,6 +230,10 @@
 
     
     
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Brief-Principle"><span class="toc-number">1.</span> <span class="toc-text">Brief Principle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mapping-Bits-to-Symbols"><span class="toc-number">1.1.</span> <span class="toc-text">Mapping Bits to Symbols</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Monte-Carlo-method"><span class="toc-number">2.</span> <span class="toc-text">Monte Carlo method</span></a></li></ol>
+      </div>
+    
 
     <div id="share-footer" style="display: none">
       <ul>
@@ -217,6 +254,8 @@
 
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
         
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
         <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
