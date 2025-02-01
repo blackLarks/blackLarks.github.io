@@ -20,7 +20,7 @@ In my undergraduate studies, communication systems courses were often heavily th
 
 Of course, no programme plan is perfect, so why do I believe that Chalmers' approach is particularly effective? The core courses here include *Introduction to Communication Engineering* and *Digital Communications*. Key areas in this field, such as signal processing and communication network, are also integrated into the curriculum, alongside vital courses in statistics, machine learning, and other relevant topics.
 
-![](/img/ChalmersBlog2/MPICT.png)
+![](../img/ChalmersBlog2/MPICT.png)
 
 Chalmers’ course structure carefully considers the sequencing of prerequisite and subsequent courses. In the first term, students take [Probability and Statistical Learning using Python](https://www.chalmers.se/en/education/your-studies/find-course-and-programme-syllabi/course-syllabus/MVE137/), which covers foundational concepts in communication and introduces basics in statistical learning and optimization. Additionally, the [Introduction to Communication Engineering](https://www.chalmers.se/en/education/your-studies/find-course-and-programme-syllabi/course-syllabus/SSY121/) course provides a solid theoretical foundation and teaches students to approach problems from an engineering perspective. With these courses as a base, the required follow-up course in [Digital Communications](https://www.chalmers.se/en/education/your-studies/find-course-and-programme-syllabi/course-syllabus/SSY125/) becomes much more manageable.
 
@@ -38,7 +38,7 @@ The first course was [Probability and Statistical Learning using Python](https:/
 
 I particularly enjoyed Giuseppe’s (one of the lecturers) clear and engaging explanations of fundamental probability concepts. He used simple models (like coin flipping and birthdays paradox problem) to provide deep insights—no overwhelming math, just vivid examples to anchor the ideas in our minds. Alexandre, on the other hand, used an intuitive, step-by-step approach to introduce us to the wonders of statistical learning, reminding us that *there is no free lunch*: you always trade something to gain what you value most. This concept felt like a life philosophy.
 
-![](/img/ChalmersBlog2/ChalmerLindhomen.jpg)
+![](../img/ChalmersBlog2/ChalmerLindhomen.jpg)
 
 The second course, [Introduction to Communication Engineering](https://www.chalmers.se/en/education/your-studies/find-course-and-programme-syllabi/course-syllabus/SSY121/), which I will refer to as the *Communication Engineering* course in the following text, was guided by the head professor Fredrik of Chalmers' Communication Systems department. This course introduced the mathematical foundations of basic communication systems, centred around the matched filter approach, and provided concise explanations of other topics like Wi-Fi, OFDM, and MIMO technology. Assessments consisted of both a project and an exam.
 
@@ -54,13 +54,13 @@ I have always believed that the essence of engineering lies in combining theory 
 
 In the *Probability* course, the professors made extensive use of Jupyter Notebook to visually demonstrate mathematical theories in class. All our assignments were submitted through Jupyter Notebook, where we used code simulations to validate theoretical solutions. This continual cycle of "mathematical result – visualization – simulation" significantly deepened my understanding. Probability theory and statistical learning no longer feel like distant or difficult fields to apply; instead, I now have a much stronger grasp of how to use them in practice.
 
-![](/img/ChalmersBlog2/MVE137.png)
+![](../img/ChalmersBlog2/MVE137.png)
 
 The project for *Communication Engineering* course involved designing a communication system. The technical requirements were straightforward and stayed well within the scope of what we had learned in class; the challenge was to write each line of code clearly and thoroughly understand the theoretical details behind it. What left an impression on me was that, after completing the project through teamwork, I could look back at each technical barrier we overcame. I can still picture the discussions with professors and teaching assistants, the moments we spent testing in the lab, and our weekly team meetings.
 
 I remember our team encountering a strange issue during testing: no matter how we adjusted the parameters, the received signal’s bit error rate and constellation diagram looked poor. After a long troubleshooting process, we finally discovered the problem—it turned out we had forgotten to upload a basic filter function in the lab.
 
-![](/img/ChalmersBlog2/SSY121Project.jpg)
+![](../img/ChalmersBlog2/SSY121Project.jpg)
 
 In designing the system, we were inspired by the instructor’s teaching and decided to adopt a bottom-up approach—starting with the design and testing of individual modules, followed by assembly and overall testing. This mirrors the typical approach in real-world engineering projects.
 
@@ -70,7 +70,7 @@ Have you ever genuinely participated in or organized a team collaboration in the
 
 Based on these objectives, our team’s role allocation framework was as follows (for explanatory purposes only):
 
-![](/img/ChalmersBlog2/Project.png)
+![](../img/ChalmersBlog2/Project.png)
 
 Under this well-organized and efficient collaboration model, our team's productivity improved—we even achieved our goals in much less time than expected. This suggests that in a real-world corporate setting, there may be cases where development costs and expected efforts are initially overestimated.
 

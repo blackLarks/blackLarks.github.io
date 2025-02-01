@@ -20,7 +20,7 @@ At the end of November 2023, I was researching information about power amplifier
 
 Fortunately, I found this [article](https://ieeexplore.ieee.org/document/1261285) written by *Prof. Christian Fager* from Chalmers University of Technology. In this article, the formulas, text, and images complement each other well, and the language is clear and concise. This allowed me to grasp the content of this section in a short time. This was an unplanned encounter with Chalmers as a reader. When I was writing this blog, I happened to find my notes of the PA circuit diagrams from this excellent article.
 
-![](/img/PA.png)
+![](../img/PA.png)
 
 At that time, I had already made the decision to pursue a Master's degree abroad. So I typed *Chalmers* into Google. A few days later, I put *Chalmers* into my list of applications.
 
@@ -53,13 +53,13 @@ The learning atmosphere is open-minded , encouraging independent thinking and cr
 
 Here are some picture I collected from the [facebook profile](https://www.facebook.com/chalmersuniversityoftechnology) of Chalmers, in which I can feel the openness and inclusivity, as well as the design imbued with a strong scientific and engineering spirit on campus.
 
-![](/img/CAMPUSJOHANNEBERG.jpg)
+![](../img/CAMPUSJOHANNEBERG.jpg)
 
-![](/img/CAMPUSLINDHOLMEN.jpg)
+![](../img/CAMPUSLINDHOLMEN.jpg)
 
-![](/img/GateOfChalmers.jpg)
+![](../img/GateOfChalmers.jpg)
 
-![](/img/Passengers.jpg)
+![](../img/Passengers.jpg)
 
 ### Academic Strengths
 

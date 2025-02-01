@@ -12,7 +12,7 @@ I love shopping in Swedish supermarkets. Beyond just filling my stomach, I enjoy
 
 The first time I bought milk and yogurt in Sweden, I was overwhelmed by the endless options in the chilled section. Here's a quick illustration:
 
-![](/img/ChalmersBlog3/Milk.png)
+![](../img/ChalmersBlog3/Milk.png)
 
 Imagine stepping into a Swedish supermarket for the first time and facing rows of neatly arranged milk cartons—how would you choose? For me, it felt like picking my destiny: colorful yet utterly confusing. After this supermarket visit, I sought advice from a Swedish classmate at Chalmers University, who happens to study [Chemistry](https://www.chalmers.se/en/departments/chem/). With a touch of humour, he said, "Well, in a way, it *is* chemistry," before explaining the lineup:
 
@@ -36,7 +36,7 @@ Maybe you are coming to Sweden, please imagine what it feels like to have ten ki
 
 Beyond the dairy products I just mentioned, you’ll need to stock up on more "survival essentials" to keep your fridge well-equipped. Shopping in Gothenburg is a breeze—supermarkets are practically everywhere!
 
-![](/img/ChalmersBlog3/Shop.png)
+![](../img/ChalmersBlog3/Shop.png)
 
 Here’s a pro tip: check the weekly discount flyers from each supermarket and plan your shopping accordingly. I see this as a culture of being prepared for opportunities.
 
@@ -50,7 +50,7 @@ Apart from filling up your fridge, you might find yourself needing to pick up so
 
 Black Friday, the day after Thanksgiving, marks the official start of the Christmas shopping season and is known as the craziest shopping day of the year. Gothenburg is no exception. I am currently in Norstan - the busiest city centre in Gothenburg during Black Friday. Let me show you the bustling scene! Watch out for the bustling crowds, but don't miss the exciting discounts!
 
-![](/img/ChalmersBlog3/Black.png)
+![](../img/ChalmersBlog3/Black.png)
 
 Back in China, I’d heard of Black Friday’s shopping frenzy but experiencing it in Sweden’s vibrant mall atmosphere gave me new perspective. Curious about its origins, I found that the term "Black Friday" was first used in Philadelphia to describe the traffic chaos caused by shoppers. Later, the name took on a financial meaning, as businesses recorded profits in "black" ink and losses in "red".
 

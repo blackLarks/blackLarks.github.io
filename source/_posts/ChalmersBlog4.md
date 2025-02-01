@@ -20,7 +20,7 @@ To be honest, I had never seriously thought about the detailed aspects of these 
 
 As Fredrik explained, "Different authors have their own conventions when writing textbooks. There’s no right or wrong—it’s about understanding their motivation. This will deepen your understanding and reveal their underlying unity. This is a very fundamental question." His words left a lasting impression on me. I kept on thinking about this problem and taking more notes.
 
-![](/img/ChalmersBlog4/Questions.jpg)
+![](../img/ChalmersBlog4/Questions.jpg)
 
 *No stupid question*—this was the first lesson I learned at Chalmers. Compared to my undergraduate studies in China, I found that the interaction between professors, teaching assistants (TAs), and students at Chalmers was far more frequent and engaging. Here are three perspectives on why this difference feels so impactful to me:
 
@@ -32,7 +32,7 @@ At Chalmers, however, I could always find scheduled office hours to meet TAs in 
 
 If you're curious about the specific teaching setup of the [Information and Communication Technology](https://www.chalmers.se/en/education/find-masters-programme/information-and-communication-technology-msc/#programme-plan) programme at Chalmers, you can refer to the following mind map. It clearly shows that the interaction between students and professors/TAs is ample, and the assessment methods are diverse, avoiding a single-track approach.
 
-![](/img/ChalmersBlog4/Course.png)
+![](../img/ChalmersBlog4/Course.png)
 
 ## The Dual Nature of Knowledge
 
@@ -46,7 +46,7 @@ There often seems to be no middle ground between "suddenly understanding everyth
 
 From this perspective, Chalmers has taught me that asking questions is a form of innovative thinking. By approaching a problem from a unique angle, one moves beyond simply following the lecturer’s thoughts, leading to both confusion and progress.
 
-![](/img/ChalmersBlog4/curse.png)
+![](../img/ChalmersBlog4/curse.png)
 
 ## The Motivation-Driven Teaching Style
 
