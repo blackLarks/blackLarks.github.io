@@ -15,11 +15,11 @@ This blog is my notes about how to conduct a digital communication system simula
 
 <a href="#fig1">Figure 1</a> shows the basic structure of a digital communication system (Proakis). In this blog, I skip the Source encoder, Channel encoder and the corresponding decoders. For simplexity, I assume that the information source generates random sequence binary bits, the channel is Additive white Gaussian noise (AWGN) Channel and QPSK with Gray labelling is applied (<a href="#fig2">Figure 2</a>).
 
-# Brief Principle
+## Brief Principle
 
 Here I give some brief explanations and my intuitions about the communication system. I will skip the concepts about the signal vector space (Proakis Ch2.2).
 
-## Constellation Diagram
+### Constellation Diagram
 
 **<font color= #d44375>Intuition:</font>** By grouping bits into symbols (like QPSK's 2 bits per symbol), we can transmit more bits in the same time period. Symbols allow us to encode multiple bits using phase and amplitude, which can be transmitted at lower frequencies. 
 
@@ -51,7 +51,7 @@ $$
 
 **Remark:** If we set $E_s = 1$, which means we normalize the energy of the constellation diagram, then $d = \frac{1}{\sqrt{2}}$. Normalization can maintain the average energy of the symbol to be 1, no matter what the constellation diagram is, which is useful for performance comparison. But I prefer not to normalize and keep the notation $E_s$ for the energy of the symbol in order to keep the form of signal to noise ratio (SNR) as $E_s/N_0$.
 
-## AWGN Channel
+### AWGN Channel
 
 **<font color= #d44375>Intuition:</font>** The reason for AWGN channel assumption is that AWGN is usually the dominant noise in the real-world communication systems. This assumption offers a simple model for analyzing the baseline performance of more complex communication systems.
 
@@ -75,7 +75,7 @@ $$
 
 where $n_I$ and $n_Q$ are the real and imaginary parts of the noise, which are independent and identically distributed (i.i.d.) [Gaussian random variables](https://en.wikipedia.org/wiki/Gaussian_random_variable) with zero mean and variance $N_0/2$. Actually, the noise $\mathbf{n}$ is of infinite dimensions, but due to the orthogonality of the signal space, only the projection on the signal space, i.e., the constellation diagram, is needed.
 
-## Optimum Receiver
+### Optimum Receiver
 
 **<font color= #d44375>Intuition:</font>** We always want to find the optimum receiver to maximize the probability of correct decision, like a detective trying to reconstruct what happened based on available evidence. This is also the essence intuition behind our conditional probability model for the channels.
 
@@ -117,7 +117,7 @@ $$
 
 **Remark:** The MAP and ML rules are all general rules, not necessary for AWGN channel and QPSK.
 
-## Decision Region
+### Decision Region
 
 **<font color= #d44375>Intuition:</font>** The decision region, in the constellation diagram perspective, is how we visualize the process of the detector in the vector space. Inituitively, we would think that the further a received signal is from a transmitted point on the constellation diagram, the lower the probability that this received point was actually transmitted from that constellation point.
 
@@ -134,7 +134,7 @@ For QPSK and AWGN channel, the decision regions ($\Gamma_{i}$, $i=1,2,3,4$) and 
 
 Stop here and take a rethinking. Why we can represent the received signal as a single point on the constellation diagram? The reason is that , for AWGN channel, only the projection on the signal space, i.e., the constellation diagram, is needed. For point $A$ on the output space, the detector will think the corresponding transmitted signal is $00$, while it is of high probability that the transmitted signal is actually $10$ due to the noise (But the transmitted signal can, of course, be any other symbol! Here for the detector, we can only use the word **"the most likely one"** to describe the transmitted signal).
 
-## Optimum Receiver for AWGN Channel
+### Optimum Receiver for AWGN Channel
 
 For AWGN channel, we can apply the memoryless property of the channel, MAP ruleand the fact that the noise is Gaussian to derive the optimum receiver.
 
@@ -156,7 +156,7 @@ $$
 
 which is the same as our intuition in <a href="#fig3">Figure 3</a>.
 
-# Monte Carlo method
+## Monte Carlo method
 
 **<font color= #d44375>Intuition:</font>** For simulation, we need to get the probability of error, say Bit Error Rate, we can do simulation with random transmitted signals and the random noise. Additionally, we always want to get the significant result with statistical confidence, so we can think of the method that we collect enough errors and do more trials to get the stable result. 
 
