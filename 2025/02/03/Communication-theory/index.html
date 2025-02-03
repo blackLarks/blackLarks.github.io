@@ -15,9 +15,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/CS.svg">
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/mapper.svg">
-<meta property="og:image" content="https://blacklarks.github.io/img/CS/remapper.svg">
+<meta property="og:image" content="https://blacklarks.github.io/img/CS/reMapper.svg">
 <meta property="article:published_time" content="2025-02-03T22:27:50.000Z">
-<meta property="article:modified_time" content="2025-02-03T23:06:29.814Z">
+<meta property="article:modified_time" content="2025-02-03T23:23:00.830Z">
 <meta property="article:author" content="Laurent">
 <meta property="article:tag" content="Theory">
 <meta name="twitter:card" content="summary">
@@ -209,8 +209,7 @@
 <p>where $n_I$ and $n_Q$ are the real and imaginary parts of the noise, which are independent and identically distributed (i.i.d.) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gaussian_random_variable">Gaussian random variables</a> with zero mean and variance $N_0&#x2F;2$. Actually, the noise $\mathbf{n}$ is of infinite dimensions, but due to the orthogonality of the signal space, only the projection on the signal space, i.e., the constellation diagram, is needed.</p>
 <h3 id="Optimum-Receiver"><a href="#Optimum-Receiver" class="headerlink" title="Optimum Receiver"></a>Optimum Receiver</h3><p><strong><font color= #d44375>Intuition:</font></strong> We always want to find the optimum receiver to maximize the probability of correct decision, like a detective trying to reconstruct what happened based on available evidence. This is also the essence intuition behind our conditional probability model for the channels.</p>
 <p>For a general vector channel model, the optimum receiver is the one that maximizes the probability of correct decision, which is given by</p>
-<p>$$</p>
-<p>P_c &#x3D; \Pr (\mathbf{u} &#x3D; \hat{\mathbf{u}})<br>    &#x3D; \int P[\mathbf{u} &#x3D; \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}<br>$$</p>
+<p>$$<br>P_c &#x3D; \Pr (\mathbf{u} &#x3D; \hat{\mathbf{u}})<br>    &#x3D; \int P[\mathbf{u} &#x3D; \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}<br>$$</p>
 <p>where $\mathbf{u}$ is the transmitted signal and $\hat{\mathbf{u}}$ is the received signal.</p>
 <p>Since $\mathbf{r}$ is oberserved and nonnegative, we can express the optimal detector as </p>
 <p>$$<br>\hat{\mathbf{u}} &#x3D; \arg \max_{\mathbf{u}} P[\mathbf{u}|\mathbf{r}]<br>$$</p>
@@ -226,7 +225,7 @@
 <p>The detector, not necessary MAP and ML detector, will partitions the signal space into decision regions based on the corresponding rule. </p>
 <p>For QPSK and AWGN channel, the decision regions ($\Gamma_{i}$, $i&#x3D;1,2,3,4$) and the received signal (red dots) examples are shown in <a href="#fig3">Figure 3</a>. </p>
 <figure id="fig3" style="text-align: center">   
-    <img src="/img/CS/remapper.svg" alt="QPSK Decision Region" style="width: 60%;">   	
+    <img src="/img/CS/reMapper.svg" alt="QPSK Decision Region" style="width: 60%;">   	
     <figcaption>
     Figure 3: QPSK Decision Region
     </figcaption> 
