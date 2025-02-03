@@ -6,17 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here is Digital Communications by Proakis an">
+    <meta name="description" content="This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here are Digital Communications by Proakis a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Digital Communication System Simulation (Basics)">
 <meta property="og:url" content="https://blacklarks.github.io/2025/01/28/Communication-theory/index.html">
 <meta property="og:site_name" content="Laurent&#39;s World">
-<meta property="og:description" content="This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here is Digital Communications by Proakis an">
+<meta property="og:description" content="This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here are Digital Communications by Proakis a">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/CS.svg">
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/mapper.svg">
+<meta property="og:image" content="https://blacklarks.github.io/img/CS/remapper.svg">
 <meta property="article:published_time" content="2025-01-28T08:27:50.000Z">
-<meta property="article:modified_time" content="2025-02-02T13:10:55.523Z">
+<meta property="article:modified_time" content="2025-02-03T22:54:28.690Z">
 <meta property="article:author" content="Laurent">
 <meta property="article:tag" content="Theory">
 <meta name="twitter:card" content="summary">
@@ -130,7 +131,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Brief-Principle"><span class="toc-number">1.</span> <span class="toc-text">Brief Principle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Constellation-Diagram"><span class="toc-number">1.1.</span> <span class="toc-text">Constellation Diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWGN-Channel"><span class="toc-number">1.2.</span> <span class="toc-text">AWGN Channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimum-Receiver"><span class="toc-number">1.3.</span> <span class="toc-text">Optimum Receiver</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Monte-Carlo-method"><span class="toc-number">2.</span> <span class="toc-text">Monte Carlo method</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Brief-Principle"><span class="toc-number">1.</span> <span class="toc-text">Brief Principle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Constellation-Diagram"><span class="toc-number">1.1.</span> <span class="toc-text">Constellation Diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWGN-Channel"><span class="toc-number">1.2.</span> <span class="toc-text">AWGN Channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimum-Receiver"><span class="toc-number">1.3.</span> <span class="toc-text">Optimum Receiver</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Region"><span class="toc-number">1.4.</span> <span class="toc-text">Decision Region</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimum-Receiver-for-AWGN-Channel"><span class="toc-number">1.5.</span> <span class="toc-text">Optimum Receiver for AWGN Channel</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Monte-Carlo-method"><span class="toc-number">2.</span> <span class="toc-text">Monte Carlo method</span></a></li></ol>
       </div>
     
   </span>
@@ -175,7 +176,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <p>This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here is <em>Digital Communications</em> by Proakis and <em>Wireless Communication Systems in Matlab</em> by Mathuranathan Viswanathan. You can also follow the MIT open course <a target="_blank" rel="noopener" href="https://ocw.mit.edu/courses/6-451-principles-of-digital-communication-ii-spring-2005/pages/readings-and-lecture-notes/">Principle of Digital Communication</a>.</p>
+    <p>This blog is my notes about how to conduct a digital communication system simulation in Matlab. My Matlab version is R2023a. Two textbooks that I recommend here are <em>Digital Communications</em> by Proakis and <em>Wireless Communication Systems in Matlab</em> by Mathuranathan Viswanathan. You can also follow the MIT open course <a target="_blank" rel="noopener" href="https://ocw.mit.edu/courses/6-451-principles-of-digital-communication-ii-spring-2005/pages/readings-and-lecture-notes/">Principle of Digital Communication</a>.</p>
 <figure id="fig1" style="text-align: center">   
     <img src="/img/CS/CS.svg" alt="Digital Communication System" style="width: 90%;">   	
     <figcaption>
@@ -184,8 +185,9 @@
 </figure>  
 
 <p><a href="#fig1">Figure 1</a> shows the basic structure of a digital communication system (Proakis). In this blog, I skip the Source encoder, Channel encoder and the corresponding decoders. For simplexity, I assume that the information source generates random sequence binary bits, the channel is Additive white Gaussian noise (AWGN) Channel and QPSK with Gray labelling is applied (<a href="#fig2">Figure 2</a>).</p>
-<h1 id="Brief-Principle"><a href="#Brief-Principle" class="headerlink" title="Brief Principle"></a>Brief Principle</h1><p>Here I give some brief explanations about the communication system. I will skip the concepts about the signal vector space (Proakis Ch2.2).</p>
-<h2 id="Constellation-Diagram"><a href="#Constellation-Diagram" class="headerlink" title="Constellation Diagram"></a>Constellation Diagram</h2><p>As <a href="#fig2">Figure 2</a> shown, we can map a bit pair to a point on the constellation diagram, which is called <em>symbol</em>. Gray labelling is applied, which means that the bit sequence with the least Hamming distance is chosen.</p>
+<h1 id="Brief-Principle"><a href="#Brief-Principle" class="headerlink" title="Brief Principle"></a>Brief Principle</h1><p>Here I give some brief explanations and my intuitions about the communication system. I will skip the concepts about the signal vector space (Proakis Ch2.2).</p>
+<h2 id="Constellation-Diagram"><a href="#Constellation-Diagram" class="headerlink" title="Constellation Diagram"></a>Constellation Diagram</h2><p><strong><font color= #d44375>Intuition:</font></strong> By grouping bits into symbols (like QPSK’s 2 bits per symbol), we can transmit more bits in the same time period. Symbols allow us to encode multiple bits using phase and amplitude, which can be transmitted at lower frequencies. </p>
+<p>As <a href="#fig2">Figure 2</a> shown, we can map a bit pair to a point on the constellation diagram, which is called <em>symbol</em>. Gray labelling is applied, which means that the bit sequence with the least Hamming distance is chosen.</p>
 <p>The following Matlab code is used to map the bit sequence to the symbol.</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% QPSK Modulator</span></span><br><span class="line"><span class="comment">% Gray-coded QPSK symbol mapping</span></span><br><span class="line"><span class="comment">% Maps bit pairs to complex constellation points</span></span><br><span class="line">inPhaseData = transmittedBits(<span class="number">1</span>:<span class="number">2</span>:<span class="keyword">end</span>);    <span class="comment">% I-channel bits</span></span><br><span class="line">quadData = transmittedBits(<span class="number">2</span>:<span class="number">2</span>:<span class="keyword">end</span>);       <span class="comment">% Q-channel bits</span></span><br><span class="line">qpskSymbols = (<span class="number">1</span> - <span class="number">2</span>*inPhaseData) + <span class="number">1</span><span class="built_in">j</span> * (<span class="number">1</span> - <span class="number">2</span>*quadData);</span><br></pre></td></tr></table></figure>
 
@@ -199,25 +201,61 @@
 <p>Suppose 00 is $(d,d)$, 01 is $(-d,d)$, 10 is $(d,-d)$, 11 is $(-d,-d)$. The average energy of the symbol is $E_s$. Then we can get the relationship between $E_s$ and $d$ as follows:</p>
 <p>$$<br>\frac{2d^2 \times 4}{4} &#x3D; E_s \implies d &#x3D; \sqrt{\frac{E_s}{2}}<br>$$</p>
 <p><strong>Remark:</strong> If we set $E_s &#x3D; 1$, which means we normalize the energy of the constellation diagram, then $d &#x3D; \frac{1}{\sqrt{2}}$. Normalization can maintain the average energy of the symbol to be 1, no matter what the constellation diagram is, which is useful for performance comparison. But I prefer not to normalize and keep the notation $E_s$ for the energy of the symbol in order to keep the form of signal to noise ratio (SNR) as $E_s&#x2F;N_0$.</p>
-<h2 id="AWGN-Channel"><a href="#AWGN-Channel" class="headerlink" title="AWGN Channel"></a>AWGN Channel</h2><p>A discrete communication channel can be completely specified by the conditional probability mass function (PMF) $p(\mathbf{r}|\mathbf{s})$, i.e., the probability of the received signal $\mathbf{r}$ given the transmitted signal $\mathbf{s}$. If the channel is memoryless, the conditional probability mass function can be written as</p>
+<h2 id="AWGN-Channel"><a href="#AWGN-Channel" class="headerlink" title="AWGN Channel"></a>AWGN Channel</h2><p><strong><font color= #d44375>Intuition:</font></strong> The reason for AWGN channel assumption is that AWGN is usually the dominant noise in the real-world communication systems. This assumption offers a simple model for analyzing the baseline performance of more complex communication systems.</p>
+<p>A discrete communication channel can be completely specified by the conditional probability mass function (PMF) $p(\mathbf{r}|\mathbf{s})$, i.e., the probability of the received signal $\mathbf{r}$ given the transmitted signal $\mathbf{s}$. If the channel is memoryless, the conditional probability mass function can be written as</p>
 <p>$$<br>p(\mathbf{r}|\mathbf{s}) &#x3D; \prod_{i} p(r_i|s_i).<br>$$</p>
 <p>Here we consider the discrete memoryless AWGN channel. The received signal is given by</p>
 <p>$$<br>\mathbf{r} &#x3D; \mathbf{s} + \mathbf{n}<br>$$</p>
 <p>where $\mathbf{s}$ is the transmitted signal, $\mathbf{n}$ is the complex Gaussian noise. The noise is given by</p>
-<p>$$<br>\mathbf{n} &#x3D; (n_I, n_Q)<br>$$</p>
-<p>where $n_I$ and $n_Q$ are the real and imaginary parts of the noise, which are independent and identically distributed (i.i.d.) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gaussian_random_variable">Gaussian random variables</a> with zero mean and variance $N_0&#x2F;2$. </p>
-<h2 id="Optimum-Receiver"><a href="#Optimum-Receiver" class="headerlink" title="Optimum Receiver"></a>Optimum Receiver</h2><p>The optimum receiver is the one that minimizes the probability of error. The probability of error is given by</p>
-<p>$$<br>P_e &#x3D; \Pr (\mathbf{u} \neq \hat{\mathbf{u}})<br>$$</p>
+<p>$$<br>\mathbf{n} &#x3D; n_I+ j\cdot n_Q<br>$$</p>
+<p>where $n_I$ and $n_Q$ are the real and imaginary parts of the noise, which are independent and identically distributed (i.i.d.) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gaussian_random_variable">Gaussian random variables</a> with zero mean and variance $N_0&#x2F;2$. Actually, the noise $\mathbf{n}$ is of infinite dimensions, but due to the orthogonality of the signal space, only the projection on the signal space, i.e., the constellation diagram, is needed.</p>
+<h2 id="Optimum-Receiver"><a href="#Optimum-Receiver" class="headerlink" title="Optimum Receiver"></a>Optimum Receiver</h2><p><strong><font color= #d44375>Intuition:</font></strong> We always want to find the optimum receiver to maximize the probability of correct decision, like a detective trying to reconstruct what happened based on available evidence. This is also the essence intuition behind our conditional probability model for the channels.</p>
+<p>For a general vector channel model, the optimum receiver is the one that maximizes the probability of correct decision, which is given by</p>
+<p>$$</p>
+<p>P_c &#x3D; \Pr (\mathbf{u} &#x3D; \hat{\mathbf{u}})<br>    &#x3D; \int P[\mathbf{u} &#x3D; \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}<br>$$</p>
 <p>where $\mathbf{u}$ is the transmitted signal and $\hat{\mathbf{u}}$ is the received signal.</p>
-<h1 id="Monte-Carlo-method"><a href="#Monte-Carlo-method" class="headerlink" title="Monte Carlo method"></a>Monte Carlo method</h1><p>The basic performance is Bit Error Rate (BER), which can be expressed as $\Pr (\mathbf{u} \neq \hat{\mathbf{u}})$. In an implementation point-of-view, we need to find an approach with statistical confidence for simulation, taking into account the random transmitted signals and the random noise. </p>
-<p>A good solution is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo method</a> below. With the simulated results, we can conduct performance verification by comparing simulated and theoretical results.</p>
+<p>Since $\mathbf{r}$ is oberserved and nonnegative, we can express the optimal detector as </p>
+<p>$$<br>\hat{\mathbf{u}} &#x3D; \arg \max_{\mathbf{u}} P[\mathbf{u}|\mathbf{r}]<br>$$</p>
+<p>Equivalently, due to the one-to-one mapping between $\mathbf{u}$ and $\mathbf{s}$, we can express the optimal detector as</p>
+<p>$$<br>\hat{\mathbf{s}} &#x3D; \arg \max_{\mathbf{s}} P[\mathbf{s}|\mathbf{r}]<br>$$</p>
+<p>These detectors are called <strong>Maximum A Posteriori Probability (MAP)</strong> rule. </p>
+<p>Apply Bayes’ theorem, we have</p>
+<p>$$<br>\hat{\mathbf{s}} &#x3D; \arg \max_{\mathbf{s}} \frac{P[\mathbf{r}|\mathbf{s}]P[\mathbf{s}]}{P[\mathbf{r}]} &#x3D; \arg \max_{\mathbf{s}} P[\mathbf{r}|\mathbf{s}]P[\mathbf{s}]<br>$$</p>
+<p>If we further assume that all symbols are equally likely, we have the <strong>Maximum Likelihood (ML)</strong> rule, which is given by</p>
+<p>$$<br>\hat{\mathbf{s}} &#x3D; \arg \max_{\mathbf{s}} P[\mathbf{r}|\mathbf{s}]<br>$$</p>
+<p><strong>Remark:</strong> The MAP and ML rules are all general rules, not necessary for AWGN channel and QPSK.</p>
+<h2 id="Decision-Region"><a href="#Decision-Region" class="headerlink" title="Decision Region"></a>Decision Region</h2><p><strong><font color= #d44375>Intuition:</font></strong> The decision region, in the constellation diagram perspective, is how we visualize the process of the detector in the vector space. Inituitively, we would think that the further a received signal is from a transmitted point on the constellation diagram, the lower the probability that this received point was actually transmitted from that constellation point.</p>
+<p>The detector, not necessary MAP and ML detector, will partitions the signal space into decision regions based on the corresponding rule. </p>
+<p>For QPSK and AWGN channel, the decision regions ($\Gamma_{i}$, $i&#x3D;1,2,3,4$) and the received signal (red dots) examples are shown in <a href="#fig3">Figure 3</a>. </p>
+<figure id="fig3" style="text-align: center">   
+    <img src="/img/CS/remapper.svg" alt="QPSK Decision Region" style="width: 60%;">   	
+    <figcaption>
+    Figure 3: QPSK Decision Region
+    </figcaption> 
+</figure>  
+
+<p>Stop here and take a rethinking. Why we can represent the received signal as a single point on the constellation diagram? The reason is that , for AWGN channel, only the projection on the signal space, i.e., the constellation diagram, is needed. For point $A$ on the output space, the detector will think the corresponding transmitted signal is $00$, while it is of high probability that the transmitted signal is actually $10$ due to the noise (But the transmitted signal can, of course, be any other symbol! Here for the detector, we can only use the word <strong>“the most likely one”</strong> to describe the transmitted signal).</p>
+<h2 id="Optimum-Receiver-for-AWGN-Channel"><a href="#Optimum-Receiver-for-AWGN-Channel" class="headerlink" title="Optimum Receiver for AWGN Channel"></a>Optimum Receiver for AWGN Channel</h2><p>For AWGN channel, we can apply the memoryless property of the channel, MAP ruleand the fact that the noise is Gaussian to derive the optimum receiver.</p>
+<p>$$<br>\hat{s} &#x3D; \arg \max_{s} (P[r|s]P[s]) &#x3D; \arg \max_{s} \left(\ln P[s] - \frac{|r-s|^2}{2\sigma^2}\right)<br>$$</p>
+<p>Note that here we use the expression of the PMF of AWGN channel:</p>
+<p>$$<br>p(r|s) &#x3D; \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(r-s)^2}{2\sigma^2}}<br>$$</p>
+<p>If we assume that all symbols are equally likely, we can simplify the expression to get the minimum Euclidean distance rule:</p>
+<p>$$<br>\hat{s} &#x3D; \arg \min_{s} |r-s|^2,<br>$$</p>
+<p>which is the same as our intuition in <a href="#fig3">Figure 3</a>.</p>
+<h1 id="Monte-Carlo-method"><a href="#Monte-Carlo-method" class="headerlink" title="Monte Carlo method"></a>Monte Carlo method</h1><p><strong><font color= #d44375>Intuition:</font></strong> For simulation, we need to get the probability of error, say Bit Error Rate, we can do simulation with random transmitted signals and the random noise. Additionally, we always want to get the significant result with statistical confidence, so we can think of the method that we collect enough errors and do more trials to get the stable result. </p>
+<p>The basic performance is Bit Error Rate (BER), which can be expressed as $\Pr [\mathbf{u} \neq \hat{\mathbf{u}}]$. In an implementation point-of-view, we need to find an approach with statistical confidence for simulation, taking into account the random transmitted signals and the random noise. </p>
+<p>The Signal-to-Noise Ratio (SNR) is a fundamental parameter for the tramsmitted signal because it can affect the answer of this question <strong>“how much can the noise affect the received signal”</strong>.</p>
+<p>An excellent solution is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo method</a> below. With the simulated results, we can conduct performance verification by comparing simulated and theoretical results.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Algorithm: MonteCarloSimulation</span><br><span class="line">Input: simulationParameters, systemParameters</span><br><span class="line">Output: simulationResults</span><br><span class="line"></span><br><span class="line">1: Initialize variables:</span><br><span class="line">   errorCount ← 0</span><br><span class="line">   processedBits ← 0</span><br><span class="line"></span><br><span class="line">2: for each SNR in snrRange do</span><br><span class="line">       while errorCount &lt; minErrorEvents do</span><br><span class="line">           data ← GenerateRandomBits(blockSize)</span><br><span class="line">           modulatedSignal ← ModulateData(data)</span><br><span class="line">           receivedSignal ← SimulateChannel(modulatedSignal, SNR)</span><br><span class="line">           decodedData ← DemodulateSignal(receivedSignal)</span><br><span class="line">           errorCount ← CountErrors(data, decodedData)</span><br><span class="line">       end while</span><br><span class="line">       </span><br><span class="line">       BER[SNR] ← errorCount/processedBits</span><br><span class="line">   end for</span><br><span class="line"></span><br><span class="line">3: return BER</span><br></pre></td></tr></table></figure>
 
 <p>The heart of the algorithm is the Main Simulation Loop, which operates at two levels:</p>
 <ul>
-<li>An outer loop that tests different SNR points</li>
+<li>An outer loop that tests different SNR ($E_s&#x2F;N_0$) points</li>
 <li>An inner Monte Carlo loop that runs until we have statistical confidence in our results</li>
 </ul>
+<p>A critical part for Monte Carlo method is to specify the maximum number of errors we want to collect. Undoubtedly, the more errors we collect, the more confident we are about the result. However, it is not realistic to set the value too high because the simulation time will be too long. </p>
+<p>We will discuss the simulation more in the next blog.</p>
+<p>Any contributive advice is welcome by email.</p>
 
   </div>
 </article>
@@ -247,7 +285,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Brief-Principle"><span class="toc-number">1.</span> <span class="toc-text">Brief Principle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Constellation-Diagram"><span class="toc-number">1.1.</span> <span class="toc-text">Constellation Diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWGN-Channel"><span class="toc-number">1.2.</span> <span class="toc-text">AWGN Channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimum-Receiver"><span class="toc-number">1.3.</span> <span class="toc-text">Optimum Receiver</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Monte-Carlo-method"><span class="toc-number">2.</span> <span class="toc-text">Monte Carlo method</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Brief-Principle"><span class="toc-number">1.</span> <span class="toc-text">Brief Principle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Constellation-Diagram"><span class="toc-number">1.1.</span> <span class="toc-text">Constellation Diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWGN-Channel"><span class="toc-number">1.2.</span> <span class="toc-text">AWGN Channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimum-Receiver"><span class="toc-number">1.3.</span> <span class="toc-text">Optimum Receiver</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Region"><span class="toc-number">1.4.</span> <span class="toc-text">Decision Region</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimum-Receiver-for-AWGN-Channel"><span class="toc-number">1.5.</span> <span class="toc-text">Optimum Receiver for AWGN Channel</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Monte-Carlo-method"><span class="toc-number">2.</span> <span class="toc-text">Monte Carlo method</span></a></li></ol>
       </div>
     
 
