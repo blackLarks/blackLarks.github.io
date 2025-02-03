@@ -82,7 +82,6 @@ where $n_I$ and $n_Q$ are the real and imaginary parts of the noise, which are i
 For a general vector channel model, the optimum receiver is the one that maximizes the probability of correct decision, which is given by
 
 $$
-
 P_c = \Pr (\mathbf{u} = \hat{\mathbf{u}})
     = \int P[\mathbf{u} = \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}
 $$
@@ -126,7 +125,7 @@ The detector, not necessary MAP and ML detector, will partitions the signal spac
 For QPSK and AWGN channel, the decision regions ($\Gamma_{i}$, $i=1,2,3,4$) and the received signal (red dots) examples are shown in <a href="#fig3">Figure 3</a>. 
 
 <figure id="fig3" style="text-align: center">   
-    <img src="/img/CS/remapper.svg" alt="QPSK Decision Region" style="width: 60%;">   	
+    <img src="/img/CS/reMapper.svg" alt="QPSK Decision Region" style="width: 60%;">   	
     <figcaption>
     Figure 3: QPSK Decision Region
     </figcaption> 
