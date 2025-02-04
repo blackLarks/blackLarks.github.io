@@ -86,7 +86,7 @@ P_c = \Pr (\mathbf{u} = \hat{\mathbf{u}})
     = \int P[\mathbf{u} = \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}
 $$
 
-where $\mathbf{u}$ is the transmitted signal and $\hat{\mathbf{u}}$ is the detected (or decoded) signal.
+where $\mathbf{u}$ is the information bits and $\hat{\mathbf{u}}$ is the detected (or decoded) signal (<a href="#fig1">Figure 1</a>).
 
 Since $\mathbf{r}$ is oberserved and nonnegative, we can express the optimal detector as 
 
