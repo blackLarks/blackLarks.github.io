@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/mapper.svg">
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/reMapper.svg">
 <meta property="article:published_time" content="2025-02-03T22:27:50.000Z">
-<meta property="article:modified_time" content="2025-02-04T18:15:23.940Z">
+<meta property="article:modified_time" content="2025-02-04T21:45:13.478Z">
 <meta property="article:author" content="Laurent">
 <meta property="article:tag" content="Theory">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
 <h3 id="Optimum-Receiver"><a href="#Optimum-Receiver" class="headerlink" title="Optimum Receiver"></a>Optimum Receiver</h3><p><strong><font color= #d44375>Intuition:</font></strong> We always want to find the optimum receiver to maximize the probability of correct decision, like a detective trying to reconstruct what happened based on available evidence. This is also the essence intuition behind our conditional probability model for the channels.</p>
 <p>For a general vector channel model, the optimum receiver is the one that maximizes the probability of correct decision, which is given by</p>
 <p>$$<br>P_c &#x3D; \Pr (\mathbf{u} &#x3D; \hat{\mathbf{u}})<br>    &#x3D; \int P[\mathbf{u} &#x3D; \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}<br>$$</p>
-<p>where $\mathbf{u}$ is the transmitted signal and $\hat{\mathbf{u}}$ is the detected (or decoded) signal.</p>
+<p>where $\mathbf{u}$ is the information bits and $\hat{\mathbf{u}}$ is the detected (or decoded) signal (<a href="#fig1">Figure 1</a>).</p>
 <p>Since $\mathbf{r}$ is oberserved and nonnegative, we can express the optimal detector as </p>
 <p>$$<br>\hat{\mathbf{u}} &#x3D; \arg \max_{\mathbf{u}} P[\mathbf{u}|\mathbf{r}]<br>$$</p>
 <p>Equivalently, due to the one-to-one mapping between $\mathbf{u}$ and $\mathbf{s}$, we can express the optimal detector as</p>
