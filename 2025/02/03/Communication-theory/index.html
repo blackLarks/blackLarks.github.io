@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/mapper.svg">
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/reMapper.svg">
 <meta property="article:published_time" content="2025-02-03T22:27:50.000Z">
-<meta property="article:modified_time" content="2025-02-04T21:45:13.478Z">
+<meta property="article:modified_time" content="2025-02-05T16:12:28.509Z">
 <meta property="article:author" content="Laurent">
 <meta property="article:tag" content="Theory">
 <meta name="twitter:card" content="summary">
@@ -182,7 +182,7 @@
     </figcaption> 
 </figure>  
 
-<p><a href="#fig1">Figure 1</a> shows the basic structure of a digital communication system (Proakis). In this blog, I skip the Source encoder, Channel encoder and the corresponding decoders. For simplexity, I assume that the information source generates random sequence binary bits, the channel is Additive white Gaussian noise (AWGN) Channel and QPSK with Gray labelling is applied (<a href="#fig2">Figure 2</a>).</p>
+<p><a href="#fig1">Figure 1</a> shows the basic structure of a digital communication system (Proakis). In this blog, I skip the source encoder, channel encoder and their corresponding decoders. For simplicity, I assume the information source generates random binary sequences, the channel is Additive White Gaussian Noise (AWGN), and QPSK with Gray labeling is applied (<a href="#fig2">Figure 2</a>).</p>
 <h2 id="Brief-Principle"><a href="#Brief-Principle" class="headerlink" title="Brief Principle"></a>Brief Principle</h2><p>Here I give some brief explanations and my intuitions about the communication system. I will skip the concepts about the signal vector space (Proakis Ch2.2).</p>
 <h3 id="Constellation-Diagram"><a href="#Constellation-Diagram" class="headerlink" title="Constellation Diagram"></a>Constellation Diagram</h3><p><strong><font color= #d44375>Intuition:</font></strong> By grouping bits into symbols (like QPSK’s 2 bits per symbol), we can transmit more bits in the same time period. Symbols allow us to encode multiple bits using phase and amplitude, which can be transmitted at lower frequencies. </p>
 <p>As <a href="#fig2">Figure 2</a> shown, we can map a bit pair to a point on the constellation diagram, which is called <em>symbol</em>. Gray labelling is applied, which means that the bit sequence with the least Hamming distance is chosen.</p>
@@ -199,15 +199,15 @@
 <p>Suppose 00 is $(d,d)$, 01 is $(-d,d)$, 10 is $(d,-d)$, 11 is $(-d,-d)$. The average energy of the symbol is $E_s$. Then we can get the relationship between $E_s$ and $d$ as follows:</p>
 <p>$$<br>\frac{2d^2 \times 4}{4} &#x3D; E_s \implies d &#x3D; \sqrt{\frac{E_s}{2}}<br>$$</p>
 <p><strong>Remark:</strong> If we set $E_s &#x3D; 1$, which means we normalize the energy of the constellation diagram, then $d &#x3D; \frac{1}{\sqrt{2}}$. Normalization can maintain the average energy of the symbol to be 1, no matter what the constellation diagram is, which is useful for performance comparison. But I prefer not to normalize and keep the notation $E_s$ for the energy of the symbol in order to keep the form of signal to noise ratio (SNR) as $E_s&#x2F;N_0$.</p>
-<h3 id="AWGN-Channel"><a href="#AWGN-Channel" class="headerlink" title="AWGN Channel"></a>AWGN Channel</h3><p><strong><font color= #d44375>Intuition:</font></strong> The reason for AWGN channel assumption is that AWGN is usually the dominant noise in the real-world communication systems. This assumption offers a simple model for analyzing the baseline performance of more complex communication systems.</p>
-<p>A discrete communication channel can be completely specified by the conditional probability mass function (PMF) $p(\mathbf{r}|\mathbf{s})$, i.e., the probability of the received signal $\mathbf{r}$ given the transmitted signal $\mathbf{s}$. If the channel is memoryless, the conditional probability mass function can be written as</p>
+<h3 id="AWGN-Channel"><a href="#AWGN-Channel" class="headerlink" title="AWGN Channel"></a>AWGN Channel</h3><p><strong><font color= #d44375>Intuition:</font></strong> The AWGN channel assumption is commonly used because Gaussian noise often represents the dominant noise source in real-world systems. This simplified model provides a baseline for analyzing more complex communication scenarios.</p>
+<p>A discrete communication channel is completely specified by the conditional probability density function (PDF) $p(\mathbf{r}|\mathbf{s})$. For memoryless channels:</p>
 <p>$$<br>p(\mathbf{r}|\mathbf{s}) &#x3D; \prod_{i} p(r_i|s_i).<br>$$</p>
 <p>Here we consider the discrete memoryless AWGN channel. The received signal is given by</p>
 <p>$$<br>\mathbf{r} &#x3D; \mathbf{s} + \mathbf{n}<br>$$</p>
 <p>where $\mathbf{s}$ is the transmitted signal, $\mathbf{n}$ is the complex Gaussian noise. The noise is given by</p>
 <p>$$<br>\mathbf{n} &#x3D; n_I+ j\cdot n_Q<br>$$</p>
-<p>where $n_I$ and $n_Q$ are the real and imaginary parts of the noise, which are independent and identically distributed (i.i.d.) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gaussian_random_variable">Gaussian random variables</a> with zero mean and variance $N_0&#x2F;2$. Actually, the noise $\mathbf{n}$ is of infinite dimensions, but due to the orthogonality of the signal space, only the projection on the signal space, i.e., the constellation diagram, is needed.</p>
-<h3 id="Optimum-Receiver"><a href="#Optimum-Receiver" class="headerlink" title="Optimum Receiver"></a>Optimum Receiver</h3><p><strong><font color= #d44375>Intuition:</font></strong> We always want to find the optimum receiver to maximize the probability of correct decision, like a detective trying to reconstruct what happened based on available evidence. This is also the essence intuition behind our conditional probability model for the channels.</p>
+<p>where $n_I$ and $n_Q$ are independent and identically distributed (i.i.d.) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gaussian_random_variable">Gaussian random variables</a> with zero mean and variance $N_0&#x2F;2$. Due to signal space orthogonality, only the projection onto the signal space (constellation diagram) needs consideration.</p>
+<h3 id="Optimum-Receiver"><a href="#Optimum-Receiver" class="headerlink" title="Optimum Receiver"></a>Optimum Receiver</h3><p><strong><font color= #d44375>Intuition:</font></strong> The optimal receiver maximizes correct decision probability, analogous to a detective reconstructing events from evidence. This forms the foundation of our conditional probability channel model.</p>
 <p>For a general vector channel model, the optimum receiver is the one that maximizes the probability of correct decision, which is given by</p>
 <p>$$<br>P_c &#x3D; \Pr (\mathbf{u} &#x3D; \hat{\mathbf{u}})<br>    &#x3D; \int P[\mathbf{u} &#x3D; \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}<br>$$</p>
 <p>where $\mathbf{u}$ is the information bits and $\hat{\mathbf{u}}$ is the detected (or decoded) signal (<a href="#fig1">Figure 1</a>).</p>
@@ -215,7 +215,7 @@
 <p>$$<br>\hat{\mathbf{u}} &#x3D; \arg \max_{\mathbf{u}} P[\mathbf{u}|\mathbf{r}]<br>$$</p>
 <p>Equivalently, due to the one-to-one mapping between $\mathbf{u}$ and $\mathbf{s}$, we can express the optimal detector as</p>
 <p>$$<br>\hat{\mathbf{s}} &#x3D; \arg \max_{\mathbf{s}} P[\mathbf{s}|\mathbf{r}]<br>$$</p>
-<p>These detectors are called <strong>Maximum A Posteriori Probability (MAP)</strong> rule. </p>
+<p>These detection rules are called <strong>Maximum A Posteriori Probability (MAP)</strong> rules. </p>
 <p>Apply Bayes’ theorem, we have</p>
 <p>$$<br>\hat{\mathbf{s}} &#x3D; \arg \max_{\mathbf{s}} \frac{P[\mathbf{r}|\mathbf{s}]P[\mathbf{s}]}{P[\mathbf{r}]} &#x3D; \arg \max_{\mathbf{s}} P[\mathbf{r}|\mathbf{s}]P[\mathbf{s}]<br>$$</p>
 <p>If we further assume that all symbols are equally likely, we have the <strong>Maximum Likelihood (ML)</strong> rule, which is given by</p>
@@ -234,12 +234,12 @@
 <p>Stop here and take a rethinking. Why we can represent the received signal as a single point on the constellation diagram? The reason is that , for AWGN channel, only the projection on the signal space, i.e., the constellation diagram, is needed. For point $A$ on the output space, the detector will think the corresponding transmitted signal is $00$, while it is of high probability that the transmitted signal is actually $10$ due to the noise (But the transmitted signal can, of course, be any other symbol! Here for the detector, we can only use the word <strong>“the most likely one”</strong> to describe the transmitted signal).</p>
 <h3 id="Optimum-Receiver-for-AWGN-Channel"><a href="#Optimum-Receiver-for-AWGN-Channel" class="headerlink" title="Optimum Receiver for AWGN Channel"></a>Optimum Receiver for AWGN Channel</h3><p>For AWGN channel, we can apply the memoryless property of the channel, MAP ruleand the fact that the noise is Gaussian to derive the optimum receiver.</p>
 <p>$$<br>\hat{s} &#x3D; \arg \max_{s} (P[r|s]P[s]) &#x3D; \arg \max_{s} \left(\ln P[s] - \frac{|r-s|^2}{2\sigma^2}\right)<br>$$</p>
-<p>Note that here we use the expression of the PMF of AWGN channel:</p>
+<p>Note that here we use the expression of the PDF of AWGN channel:</p>
 <p>$$<br>p(r|s) &#x3D; \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(r-s)^2}{2\sigma^2}}<br>$$</p>
 <p>If we assume that all symbols are equally likely, we can simplify the expression to get the minimum Euclidean distance rule:</p>
 <p>$$<br>\hat{s} &#x3D; \arg \min_{s} |r-s|^2,<br>$$</p>
 <p>which is the same as our intuition in <a href="#fig3">Figure 3</a>.</p>
-<h2 id="Monte-Carlo-method"><a href="#Monte-Carlo-method" class="headerlink" title="Monte Carlo method"></a>Monte Carlo method</h2><p><strong><font color= #d44375>Intuition:</font></strong> For simulation, we need to get the probability of error, say Bit Error Rate, we can do simulation with random transmitted signals and the random noise. Additionally, we always want to get the significant result with statistical confidence, so we can think of the method that we collect enough errors and do more trials to get the stable result. </p>
+<h2 id="Monte-Carlo-method"><a href="#Monte-Carlo-method" class="headerlink" title="Monte Carlo method"></a>Monte Carlo method</h2><p><strong><font color= #d44375>Intuition:</font></strong> Simulations estimate error probabilities like Bit Error Rate (BER) using randomly generated signals and noise samples. Statistical confidence requires sufficient error events and trials.</p>
 <p>The basic performance is Bit Error Rate (BER), which can be expressed as $\Pr [\mathbf{u} \neq \hat{\mathbf{u}}]$. In an implementation point-of-view, we need to find an approach with statistical confidence for simulation, taking into account the random transmitted signals and the random noise. </p>
 <p>The Signal-to-Noise Ratio (SNR) is a fundamental parameter for the tramsmitted signal because it can affect the answer of this question <strong>“how much can the noise affect the received signal”</strong>.</p>
 <p>An excellent solution is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo method</a> below. With the simulated results, we can conduct performance verification by comparing simulated and theoretical results.</p>
@@ -252,6 +252,12 @@
 </ul>
 <p>A critical part for Monte Carlo method is to specify the maximum number of errors we want to collect. Undoubtedly, the more errors we collect, the more confident we are about the result. However, it is not realistic to set the value too high because the simulation time will be too long. </p>
 <p>We will discuss the simulation more in the next blog.</p>
+<p>Key considerations for Monte Carlo simulation:</p>
+<ol>
+<li>Trade-off between statistical confidence (more errors) and simulation time</li>
+<li>SNR’s fundamental role in determining noise impact</li>
+<li>Verification through theoretical-simulation comparison</li>
+</ol>
 <p>Any contributive advice is welcome by email.</p>
 
   </div>
