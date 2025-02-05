@@ -13,7 +13,7 @@ This blog is my notes about how to conduct a digital communication system simula
     </figcaption> 
 </figure>  
 
-<a href="#fig1">Figure 1</a> shows the basic structure of a digital communication system (Proakis). In this blog, I skip the Source encoder, Channel encoder and the corresponding decoders. For simplexity, I assume that the information source generates random sequence binary bits, the channel is Additive white Gaussian noise (AWGN) Channel and QPSK with Gray labelling is applied (<a href="#fig2">Figure 2</a>).
+<a href="#fig1">Figure 1</a> shows the basic structure of a digital communication system (Proakis). In this blog, I skip the source encoder, channel encoder and their corresponding decoders. For simplicity, I assume the information source generates random binary sequences, the channel is Additive White Gaussian Noise (AWGN), and QPSK with Gray labeling is applied (<a href="#fig2">Figure 2</a>).
 
 ## Brief Principle
 
@@ -53,9 +53,9 @@ $$
 
 ### AWGN Channel
 
-**<font color= #d44375>Intuition:</font>** The reason for AWGN channel assumption is that AWGN is usually the dominant noise in the real-world communication systems. This assumption offers a simple model for analyzing the baseline performance of more complex communication systems.
+**<font color= #d44375>Intuition:</font>** The AWGN channel assumption is commonly used because Gaussian noise often represents the dominant noise source in real-world systems. This simplified model provides a baseline for analyzing more complex communication scenarios.
 
-A discrete communication channel can be completely specified by the conditional probability mass function (PMF) $p(\mathbf{r}|\mathbf{s})$, i.e., the probability of the received signal $\mathbf{r}$ given the transmitted signal $\mathbf{s}$. If the channel is memoryless, the conditional probability mass function can be written as
+A discrete communication channel is completely specified by the conditional probability density function (PDF) $p(\mathbf{r}|\mathbf{s})$. For memoryless channels:
 
 $$
 p(\mathbf{r}|\mathbf{s}) = \prod_{i} p(r_i|s_i).
@@ -73,11 +73,11 @@ $$
 \mathbf{n} = n_I+ j\cdot n_Q
 $$
 
-where $n_I$ and $n_Q$ are the real and imaginary parts of the noise, which are independent and identically distributed (i.i.d.) [Gaussian random variables](https://en.wikipedia.org/wiki/Gaussian_random_variable) with zero mean and variance $N_0/2$. Actually, the noise $\mathbf{n}$ is of infinite dimensions, but due to the orthogonality of the signal space, only the projection on the signal space, i.e., the constellation diagram, is needed.
+where $n_I$ and $n_Q$ are independent and identically distributed (i.i.d.) [Gaussian random variables](https://en.wikipedia.org/wiki/Gaussian_random_variable) with zero mean and variance $N_0/2$. Due to signal space orthogonality, only the projection onto the signal space (constellation diagram) needs consideration.
 
 ### Optimum Receiver
 
-**<font color= #d44375>Intuition:</font>** We always want to find the optimum receiver to maximize the probability of correct decision, like a detective trying to reconstruct what happened based on available evidence. This is also the essence intuition behind our conditional probability model for the channels.
+**<font color= #d44375>Intuition:</font>** The optimal receiver maximizes correct decision probability, analogous to a detective reconstructing events from evidence. This forms the foundation of our conditional probability channel model.
 
 For a general vector channel model, the optimum receiver is the one that maximizes the probability of correct decision, which is given by
 
@@ -100,7 +100,7 @@ $$
 \hat{\mathbf{s}} = \arg \max_{\mathbf{s}} P[\mathbf{s}|\mathbf{r}]
 $$
 
-These detectors are called **Maximum A Posteriori Probability (MAP)** rule. 
+These detection rules are called **Maximum A Posteriori Probability (MAP)** rules. 
 
 Apply Bayes' theorem, we have
 
@@ -141,7 +141,7 @@ $$
 \hat{s} = \arg \max_{s} (P[r|s]P[s]) = \arg \max_{s} \left(\ln P[s] - \frac{|r-s|^2}{2\sigma^2}\right)
 $$
 
-Note that here we use the expression of the PMF of AWGN channel:
+Note that here we use the expression of the PDF of AWGN channel:
 
 $$
 p(r|s) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(r-s)^2}{2\sigma^2}}
@@ -157,7 +157,7 @@ which is the same as our intuition in <a href="#fig3">Figure 3</a>.
 
 ## Monte Carlo method
 
-**<font color= #d44375>Intuition:</font>** For simulation, we need to get the probability of error, say Bit Error Rate, we can do simulation with random transmitted signals and the random noise. Additionally, we always want to get the significant result with statistical confidence, so we can think of the method that we collect enough errors and do more trials to get the stable result. 
+**<font color= #d44375>Intuition:</font>** Simulations estimate error probabilities like Bit Error Rate (BER) using randomly generated signals and noise samples. Statistical confidence requires sufficient error events and trials.
 
 The basic performance is Bit Error Rate (BER), which can be expressed as $\Pr [\mathbf{u} \neq \hat{\mathbf{u}}]$. In an implementation point-of-view, we need to find an approach with statistical confidence for simulation, taking into account the random transmitted signals and the random noise. 
 
@@ -196,6 +196,11 @@ The heart of the algorithm is the Main Simulation Loop, which operates at two le
 A critical part for Monte Carlo method is to specify the maximum number of errors we want to collect. Undoubtedly, the more errors we collect, the more confident we are about the result. However, it is not realistic to set the value too high because the simulation time will be too long. 
 
 We will discuss the simulation more in the next blog.
+
+Key considerations for Monte Carlo simulation:
+1. Trade-off between statistical confidence (more errors) and simulation time
+2. SNR's fundamental role in determining noise impact
+3. Verification through theoretical-simulation comparison
 
 Any contributive advice is welcome by email.
 
