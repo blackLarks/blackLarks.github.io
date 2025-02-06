@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/mapper.svg">
 <meta property="og:image" content="https://blacklarks.github.io/img/CS/reMapper.svg">
 <meta property="article:published_time" content="2025-02-03T22:27:50.000Z">
-<meta property="article:modified_time" content="2025-02-05T16:12:28.509Z">
+<meta property="article:modified_time" content="2025-02-06T18:18:08.509Z">
 <meta property="article:author" content="Laurent">
 <meta property="article:tag" content="Theory">
 <meta name="twitter:card" content="summary">
@@ -209,9 +209,9 @@
 <p>where $n_I$ and $n_Q$ are independent and identically distributed (i.i.d.) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gaussian_random_variable">Gaussian random variables</a> with zero mean and variance $N_0&#x2F;2$. Due to signal space orthogonality, only the projection onto the signal space (constellation diagram) needs consideration.</p>
 <h3 id="Optimum-Receiver"><a href="#Optimum-Receiver" class="headerlink" title="Optimum Receiver"></a>Optimum Receiver</h3><p><strong><font color= #d44375>Intuition:</font></strong> The optimal receiver maximizes correct decision probability, analogous to a detective reconstructing events from evidence. This forms the foundation of our conditional probability channel model.</p>
 <p>For a general vector channel model, the optimum receiver is the one that maximizes the probability of correct decision, which is given by</p>
-<p>$$<br>P_c &#x3D; \Pr (\mathbf{u} &#x3D; \hat{\mathbf{u}})<br>    &#x3D; \int P[\mathbf{u} &#x3D; \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}<br>$$</p>
+<p>$$<br>P_c &#x3D; \Pr (\mathbf{u} &#x3D; \hat{\mathbf{u}})<br>    &#x3D; \int P[\mathbf{u} &#x3D; \hat{\mathbf{u}}|\mathbf{r}] p[\mathbf{r}] d\mathbf{r}<br>$$</p>
 <p>where $\mathbf{u}$ is the information bits and $\hat{\mathbf{u}}$ is the detected (or decoded) signal (<a href="#fig1">Figure 1</a>).</p>
-<p>Since $\mathbf{r}$ is oberserved and nonnegative, we can express the optimal detector as </p>
+<p>Since $p[\mathbf{r}]$ is oberserved and nonnegative, we can express the optimal detector as </p>
 <p>$$<br>\hat{\mathbf{u}} &#x3D; \arg \max_{\mathbf{u}} P[\mathbf{u}|\mathbf{r}]<br>$$</p>
 <p>Equivalently, due to the one-to-one mapping between $\mathbf{u}$ and $\mathbf{s}$, we can express the optimal detector as</p>
 <p>$$<br>\hat{\mathbf{s}} &#x3D; \arg \max_{\mathbf{s}} P[\mathbf{s}|\mathbf{r}]<br>$$</p>
@@ -232,7 +232,7 @@
 </figure>  
 
 <p>Stop here and take a rethinking. Why we can represent the received signal as a single point on the constellation diagram? The reason is that , for AWGN channel, only the projection on the signal space, i.e., the constellation diagram, is needed. For point $A$ on the output space, the detector will think the corresponding transmitted signal is $00$, while it is of high probability that the transmitted signal is actually $10$ due to the noise (But the transmitted signal can, of course, be any other symbol! Here for the detector, we can only use the word <strong>“the most likely one”</strong> to describe the transmitted signal).</p>
-<h3 id="Optimum-Receiver-for-AWGN-Channel"><a href="#Optimum-Receiver-for-AWGN-Channel" class="headerlink" title="Optimum Receiver for AWGN Channel"></a>Optimum Receiver for AWGN Channel</h3><p>For AWGN channel, we can apply the memoryless property of the channel, MAP ruleand the fact that the noise is Gaussian to derive the optimum receiver.</p>
+<h3 id="Optimum-Receiver-for-AWGN-Channel"><a href="#Optimum-Receiver-for-AWGN-Channel" class="headerlink" title="Optimum Receiver for AWGN Channel"></a>Optimum Receiver for AWGN Channel</h3><p>For AWGN channel, we can apply the memoryless property of the channel, MAP rule and the fact that the noise is Gaussian to derive the optimum receiver.</p>
 <p>$$<br>\hat{s} &#x3D; \arg \max_{s} (P[r|s]P[s]) &#x3D; \arg \max_{s} \left(\ln P[s] - \frac{|r-s|^2}{2\sigma^2}\right)<br>$$</p>
 <p>Note that here we use the expression of the PDF of AWGN channel:</p>
 <p>$$<br>p(r|s) &#x3D; \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(r-s)^2}{2\sigma^2}}<br>$$</p>
