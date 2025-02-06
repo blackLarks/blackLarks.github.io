@@ -83,12 +83,12 @@ For a general vector channel model, the optimum receiver is the one that maximiz
 
 $$
 P_c = \Pr (\mathbf{u} = \hat{\mathbf{u}})
-    = \int P[\mathbf{u} = \hat{\mathbf{u}}|\mathbf{r}] p(\mathbf{r}) d\mathbf{r}
+    = \int P[\mathbf{u} = \hat{\mathbf{u}}|\mathbf{r}] p[\mathbf{r}] d\mathbf{r}
 $$
 
 where $\mathbf{u}$ is the information bits and $\hat{\mathbf{u}}$ is the detected (or decoded) signal (<a href="#fig1">Figure 1</a>).
 
-Since $\mathbf{r}$ is oberserved and nonnegative, we can express the optimal detector as 
+Since $p[\mathbf{r}]$ is oberserved and nonnegative, we can express the optimal detector as 
 
 $$
 \hat{\mathbf{u}} = \arg \max_{\mathbf{u}} P[\mathbf{u}|\mathbf{r}]
@@ -135,7 +135,7 @@ Stop here and take a rethinking. Why we can represent the received signal as a s
 
 ### Optimum Receiver for AWGN Channel
 
-For AWGN channel, we can apply the memoryless property of the channel, MAP ruleand the fact that the noise is Gaussian to derive the optimum receiver.
+For AWGN channel, we can apply the memoryless property of the channel, MAP rule and the fact that the noise is Gaussian to derive the optimum receiver.
 
 $$
 \hat{s} = \arg \max_{s} (P[r|s]P[s]) = \arg \max_{s} \left(\ln P[s] - \frac{|r-s|^2}{2\sigma^2}\right)
