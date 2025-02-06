@@ -37,9 +37,16 @@ social_links:
   -
     icon: instagram
     link: https://www.instagram.com/j.whitelarks/
+  - 
+    icon: linkedin
+    link: https://www.linkedin.com/in/jun-cao-8332a2332/
+  -
+    icon: orcid
+    link: https://orcid.org/0009-0003-0844-241X/
   -
     icon: mail
     link: mailto:junca@chalmers.se
+
 
 
 # Customize the overview with displaying a tagcloud on the index page.
