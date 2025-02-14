@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="This blog is my second blog about digital communication system simulation. In this blog, I will simulate a QPSK uncoded communication system (AWGN channel) with Matlab. I try to do it step by step fol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Digital Communication System Simulation (QPSK)">
+<meta property="og:url" content="https://blacklarks.github.io/2025/02/14/Communication-simulation/index.html">
+<meta property="og:site_name" content="Laurent&#39;s World">
+<meta property="og:description" content="This blog is my second blog about digital communication system simulation. In this blog, I will simulate a QPSK uncoded communication system (AWGN channel) with Matlab. I try to do it step by step fol">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blacklarks.github.io/img/CS/QPSK_Uncoded_BER.svg">
+<meta property="article:published_time" content="2025-02-14T19:47:00.000Z">
+<meta property="article:modified_time" content="2025-02-14T21:01:47.720Z">
+<meta property="article:author" content="Laurent">
+<meta property="article:tag" content="Theory">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blacklarks.github.io/img/CS/QPSK_Uncoded_BER.svg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Digital Communication System Simulation (QPSK)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Blogs</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/blackLarks">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/02/03/Communication-theory/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blacklarks.github.io/2025/02/14/Communication-simulation/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&text=Digital Communication System Simulation (QPSK)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&is_video=false&description=Digital Communication System Simulation (QPSK)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Digital Communication System Simulation (QPSK)&body=Check out this article: https://blacklarks.github.io/2025/02/14/Communication-simulation/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&name=Digital Communication System Simulation (QPSK)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blacklarks.github.io/2025/02/14/Communication-simulation/&t=Digital Communication System Simulation (QPSK)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Steps-of-the-simulation"><span class="toc-number">1.</span> <span class="toc-text">Steps of the simulation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GenerateRandomBits"><span class="toc-number">1.1.</span> <span class="toc-text">GenerateRandomBits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ModulateData"><span class="toc-number">1.2.</span> <span class="toc-text">ModulateData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SimulateChannel"><span class="toc-number">1.3.</span> <span class="toc-text">SimulateChannel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DemodulateSignal"><span class="toc-number">1.4.</span> <span class="toc-text">DemodulateSignal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CountErrors"><span class="toc-number">1.5.</span> <span class="toc-text">CountErrors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Theoretical-BER"><span class="toc-number">2.</span> <span class="toc-text">Theoretical BER</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plot-Results"><span class="toc-number">3.</span> <span class="toc-text">Plot Results</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Digital Communication System Simulation (QPSK)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Laurent</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-02-14T19:47:00.000Z" class="dt-published" itemprop="datePublished">2025-02-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Theory/" rel="tag">Theory</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>This blog is my second blog about digital communication system simulation. In this blog, I will simulate a QPSK uncoded communication system (AWGN channel) with Matlab. I try to do it step by step following the Monte Carlo method.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Algorithm: MonteCarloSimulation</span><br><span class="line">Input: simulationParameters, systemParameters</span><br><span class="line">Output: simulationResults</span><br><span class="line"></span><br><span class="line">1: Initialize variables:</span><br><span class="line">   errorCount ← 0</span><br><span class="line">   processedBits ← 0</span><br><span class="line"></span><br><span class="line">2: for each SNR in snrRange do</span><br><span class="line">       while errorCount &lt; minErrorEvents do</span><br><span class="line">           data ← GenerateRandomBits(blockSize)</span><br><span class="line">           modulatedSignal ← ModulateData(data)</span><br><span class="line">           receivedSignal ← SimulateChannel(modulatedSignal, SNR)</span><br><span class="line">           decodedData ← DemodulateSignal(receivedSignal)</span><br><span class="line">           errorCount ← CountErrors(data, decodedData)</span><br><span class="line">       end while</span><br><span class="line">       </span><br><span class="line">       BER[SNR] ← errorCount/processedBits</span><br><span class="line">   end for</span><br><span class="line"></span><br><span class="line">3: return BER</span><br></pre></td></tr></table></figure>
+
+<h2 id="Steps-of-the-simulation"><a href="#Steps-of-the-simulation" class="headerlink" title="Steps of the simulation"></a>Steps of the simulation</h2><h3 id="GenerateRandomBits"><a href="#GenerateRandomBits" class="headerlink" title="GenerateRandomBits"></a>GenerateRandomBits</h3><p>It is straightforward to generate random bits with Matlab with the function <em>randi</em>, which can generate uniformly distributed random integers. Here I use the row vector form to represent the information bits.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transmittedBits = randi([<span class="number">0</span>, <span class="number">1</span>], <span class="number">1</span>, numBitsPerBlock);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ModulateData"><a href="#ModulateData" class="headerlink" title="ModulateData"></a>ModulateData</h3><p>In this step, we need to map the information bits to the QPSK signal. The details of QPSK can be found in the previous blog.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% QPSK Modulator</span></span><br><span class="line"><span class="comment">% Gray-coded QPSK symbol mapping</span></span><br><span class="line"><span class="comment">% Maps bit pairs to complex constellation points</span></span><br><span class="line">inPhaseData = transmittedBits(<span class="number">1</span>:<span class="number">2</span>:<span class="keyword">end</span>);    <span class="comment">% I-channel bits</span></span><br><span class="line">quadData = transmittedBits(<span class="number">2</span>:<span class="number">2</span>:<span class="keyword">end</span>);       <span class="comment">% Q-channel bits</span></span><br><span class="line">qpskSymbols = (<span class="number">1</span> - <span class="number">2</span>*inPhaseData) + <span class="number">1</span><span class="built_in">j</span> * (<span class="number">1</span> - <span class="number">2</span>*quadData);</span><br></pre></td></tr></table></figure>
+
+<h3 id="SimulateChannel"><a href="#SimulateChannel" class="headerlink" title="SimulateChannel"></a>SimulateChannel</h3><p>Here we need to simulate the complex AWGN channel. The mathematical model is easy to understand but there are some details to be careful in the implementation.</p>
+<p>$$<br>\text{SNR}, \text{signalPower} \to N_0 \to \text{receivedSignal}<br>$$</p>
+<p>In order to make the awgn channel general for both normalized and non-normalized signal power, we need to calculate the signal power first. Then we can calculate the noise power spectral density $N_0$ from the SNR (linear scale) and the average signal power. After that, we need to generate the complex Gaussian noise with the variance of $\sqrt{\frac{N_0}{2}}$ and add it to the transmitted signal to get the received signal.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">receivedSignal</span> = <span class="title">add_awgn_noise</span><span class="params">(transmittedSymbols, signalToNoiseRatioDb)</span></span></span><br><span class="line"><span class="comment">% add_awgn_noise Simulates an Additive White Gaussian Noise (AWGN) channel</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% This function models the effects of thermal noise in a communication channel</span></span><br><span class="line"><span class="comment">% by adding complex Gaussian noise to the transmitted signal. The noise power</span></span><br><span class="line"><span class="comment">% is calculated based on the desired signal-to-noise ratio (SNR).</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% Theory:</span></span><br><span class="line"><span class="comment">%   - AWGN is a fundamental channel model in communications</span></span><br><span class="line"><span class="comment">%   - The noise is &quot;additive&quot; because it&#x27;s added to the signal</span></span><br><span class="line"><span class="comment">%   - &quot;White&quot; means the noise has uniform power across all frequencies</span></span><br><span class="line"><span class="comment">%   - &quot;Gaussian&quot; refers to the normal distribution of noise amplitudes</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% Inputs:</span></span><br><span class="line"><span class="comment">%   transmittedSymbols  - Complex baseband symbols (e.g., QPSK constellation points)</span></span><br><span class="line"><span class="comment">%   signalToNoiseRatioDb - Energy per symbol to noise density ratio (Es/N0) in dB</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% Output:</span></span><br><span class="line"><span class="comment">%   receivedSignal     - Transmitted symbols corrupted by AWGN</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">% Example:</span></span><br><span class="line"><span class="comment">%   receivedSignal = addAwgnChannel(qpskSymbols, 10) % Add noise at 10dB Es/N0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">% Convert signal-to-noise ratio from dB to linear scale</span></span><br><span class="line">    <span class="comment">% SNR(linear) = 10^(SNR(dB)/10)</span></span><br><span class="line">    signalToNoiseRatioLinear = <span class="number">10</span>^(signalToNoiseRatioDb/<span class="number">10</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">% Calculate average signal power</span></span><br><span class="line">    <span class="comment">% P = (1/N) * Σ|x[n]|²</span></span><br><span class="line">    symbolCount = <span class="built_in">length</span>(transmittedSymbols);</span><br><span class="line">    signalPower = sum(<span class="built_in">abs</span>(transmittedSymbols).^<span class="number">2</span>) / symbolCount;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">% Calculate noise power spectral density (N0)</span></span><br><span class="line">    <span class="comment">% Using the relation: Es/N0 = SignalPower/NoisePower</span></span><br><span class="line">    noiseDensity = signalPower / signalToNoiseRatioLinear;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">% Generate complex Gaussian noise</span></span><br><span class="line">    <span class="comment">% - Real and imaginary parts are independent</span></span><br><span class="line">    <span class="comment">% - Each component has variance = noiseDensity/2</span></span><br><span class="line">    <span class="comment">% - Factor of 1/2 ensures total noise power equals noiseDensity</span></span><br><span class="line">    noiseStdDev = <span class="built_in">sqrt</span>(noiseDensity/<span class="number">2</span>);</span><br><span class="line">    noiseReal = noiseStdDev * <span class="built_in">randn</span>(<span class="built_in">size</span>(transmittedSymbols));</span><br><span class="line">    noiseImag = noiseStdDev * <span class="built_in">randn</span>(<span class="built_in">size</span>(transmittedSymbols));</span><br><span class="line">    noiseComplex = noiseReal + <span class="number">1</span><span class="built_in">j</span>*noiseImag;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">% Add noise to transmitted signal</span></span><br><span class="line">    <span class="comment">% Received signal = transmitted signal + noise</span></span><br><span class="line">    receivedSignal = transmittedSymbols + noiseComplex;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">% Note: The received signal now has the following properties:</span></span><br><span class="line">    <span class="comment">% 1. Signal component preserved exactly</span></span><br><span class="line">    <span class="comment">% 2. Noise component is complex Gaussian</span></span><br><span class="line">    <span class="comment">% 3. Signal-to-noise ratio matches specified Es/N0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="DemodulateSignal"><a href="#DemodulateSignal" class="headerlink" title="DemodulateSignal"></a>DemodulateSignal</h3><p>For QPSK, the demodulation is very simple. We just need to check the real and imaginary parts of  the received signal and make a decision.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% QPSK Demodulator</span></span><br><span class="line"><span class="comment">% Optimal detection for AWGN channel</span></span><br><span class="line">detectedInPhase = <span class="built_in">real</span>(receivedSymbols) &lt; <span class="number">0</span>;  <span class="comment">% I-channel detection</span></span><br><span class="line">detectedQuad = <span class="built_in">imag</span>(receivedSymbols) &lt; <span class="number">0</span>;     <span class="comment">% Q-channel detection</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% Reconstruct bit stream from symbol decisions</span></span><br><span class="line">detectedBits = <span class="built_in">reshape</span>([detectedInPhase; detectedQuad], <span class="number">1</span>, []);</span><br></pre></td></tr></table></figure>
+
+<h3 id="CountErrors"><a href="#CountErrors" class="headerlink" title="CountErrors"></a>CountErrors</h3><p>This is the <strong><font color= #d44375>core part</font></strong> of the Monte Carlo method. In the Monte Carlo iteration <strong>while</strong> loop, we need to count the number of errors by comparing the information bits and the detected (demodulated) bits in a block-by-block manner. </p>
+<p>If the accumulated errors is enough for our simulation or we have processed enough blocks, we can stop the iteration and calculate the final simulated Bit Error Rate (BER).</p>
+<p><strong><font color= #d44375>Remark:</font></strong> By using Monte Carlo method, we can get the average BER of our communication system. The results is of statistical confidence if we have enough error events and trials.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">% ...inside the Monte Carlo iteration loop...</span><br><span class="line">% Error Analysis</span><br><span class="line">% Bit error counting</span><br><span class="line">blockErrors = sum((transmittedBits ~= detectedBits));</span><br><span class="line">accumulatedErrors = accumulatedErrors + blockErrors;</span><br><span class="line">processedBits = processedBits + numBitsPerBlock;</span><br><span class="line">% ...</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">% Calculate empirical BER for current Eb/N0</span><br><span class="line">bitErrorRate(snrIndex) = accumulatedErrors/processedBits;</span><br><span class="line">%...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Theoretical-BER"><a href="#Theoretical-BER" class="headerlink" title="Theoretical BER"></a>Theoretical BER</h2><p>We want to validate our simulated results with the theoretical BER of QPSK. The theoretical BER of QPSK in AWGN channel is given by:</p>
+<p>$$<br>P_e &#x3D; Q\left(\sqrt{\frac{2E_b}{N_0}}\right)<br>$$</p>
+<p><strong><font color= #d44375>Remark:</font></strong> The BER is related the specific labelling scheme of the QPSK constellation. This BER is for the Gray-labelling scheme. For detailed derivation, please refer to Proakis’s book Chapter 4.3.</p>
+<p>In Matlab, we can use the function <em>qfunc</em> to denote the Q-function. The Theoretical BER is calculated as follows:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Theoretical Performance Bound</span></span><br><span class="line"><span class="comment">% Calculate theoretical QPSK BER in AWGN</span></span><br><span class="line"><span class="comment">% QPSK BER = BPSK BER due to orthogonal channels</span></span><br><span class="line">ebNoLinear = <span class="number">10.</span>^(ebNoDbRange/<span class="number">10</span>);                    <span class="comment">% Convert dB to linear</span></span><br><span class="line">theoreticalBer = qfunc(<span class="built_in">sqrt</span>(<span class="number">2</span>*ebNoLinear));           <span class="comment">% Q-function for QPSK</span></span><br></pre></td></tr></table></figure>
+
+<p>Remember that when we calculate the theoretical BER, we need to convert the EbN0 from dB to linear. But for plotting, we can use the dB scale for better visibility.</p>
+<h2 id="Plot-Results"><a href="#Plot-Results" class="headerlink" title="Plot Results"></a>Plot Results</h2><p>I personally think that a carefully designed plot is the most powerful way to visualize the simulation results. Here I use the semilogy function to plot the BER vs Eb&#x2F;N0 in <a href="#fig1">Figure 1</a>.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Performance Visualization</span></span><br><span class="line"><span class="built_in">figure</span>(<span class="string">&#x27;Position&#x27;</span>, [<span class="number">100</span> <span class="number">100</span> <span class="number">800</span> <span class="number">600</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">% Plot configuration</span></span><br><span class="line">plotLineWidth = <span class="number">2</span>;</span><br><span class="line">markerSize = <span class="number">17</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% Monte Carlo simulation results</span></span><br><span class="line">semilogy(ebNoDbRange, bitErrorRate, <span class="string">&#x27;b.&#x27;</span>, ...</span><br><span class="line">         <span class="string">&#x27;MarkerSize&#x27;</span>, markerSize, ...</span><br><span class="line">         <span class="string">&#x27;DisplayName&#x27;</span>, <span class="string">&#x27;Monte Carlo Simulation&#x27;</span>);</span><br><span class="line"><span class="built_in">hold</span> on;</span><br><span class="line"></span><br><span class="line"><span class="comment">% Theoretical bound</span></span><br><span class="line">semilogy(ebNoDbRange, theoreticalBer, <span class="string">&#x27;b-&#x27;</span>, ...</span><br><span class="line">         <span class="string">&#x27;LineWidth&#x27;</span>, plotLineWidth, ...</span><br><span class="line">         <span class="string">&#x27;DisplayName&#x27;</span>, <span class="string">&#x27;Theoretical Bound&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% Plot aesthetics</span></span><br><span class="line">grid on;</span><br><span class="line">ylim([<span class="number">1e-4</span> <span class="number">1</span>]);</span><br><span class="line">xlim([<span class="built_in">min</span>(ebNoDbRange) <span class="built_in">max</span>(ebNoDbRange)]);</span><br><span class="line">xlabel(<span class="string">&#x27;$E_b/N_0$ (dB)&#x27;</span>, <span class="string">&#x27;FontSize&#x27;</span>, <span class="number">12</span>, <span class="string">&#x27;Interpreter&#x27;</span>, <span class="string">&#x27;latex&#x27;</span>);</span><br><span class="line">ylabel(<span class="string">&#x27;Bit Error Rate (BER)&#x27;</span>, <span class="string">&#x27;FontSize&#x27;</span>, <span class="number">12</span>, <span class="string">&#x27;Interpreter&#x27;</span>, <span class="string">&#x27;latex&#x27;</span>);</span><br><span class="line">title(<span class="string">&#x27;QPSK Performance Analysis: Monte Carlo vs Theoretical&#x27;</span>, ...</span><br><span class="line">      <span class="string">&#x27;FontSize&#x27;</span>, <span class="number">14</span>, <span class="string">&#x27;Interpreter&#x27;</span>, <span class="string">&#x27;latex&#x27;</span>);</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">&#x27;Location&#x27;</span>, <span class="string">&#x27;southwest&#x27;</span>, <span class="string">&#x27;FontSize&#x27;</span>, <span class="number">10</span>);</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">&#x27;boxoff&#x27;</span>);</span><br><span class="line">set(gcf, <span class="string">&#x27;Color&#x27;</span>, <span class="string">&#x27;white&#x27;</span>);</span><br><span class="line">set(gca, <span class="string">&#x27;FontSize&#x27;</span>, <span class="number">11</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong><font color= #d44375>Remark:</font></strong> You can find the complete code in this <a target="_blank" rel="noopener" href="https://github.com/blackLarks/Digital-Communication-Simulation">Github repository</a>.</p>
+<p>The final BER plot (simulated v.s. theoretical) is shown as follows:</p>
+<figure id="fig1" style="text-align: center">   
+    <img src="/img/CS/QPSK_Uncoded_BER.svg" alt="QPSK Uncoded System BER Performance" style="width: 60%;">   	
+    <figcaption>
+    Figure 1: QPSK Uncoded System BER Performance
+    </figcaption> 
+</figure>  
+
+<p><strong><font color= #d44375>Remark:</font></strong> The simulation results are consistent with the theoretical bound. The Monte Carlo simulation is accurate and reliable.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Blogs</a></li>
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/blackLarks">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Steps-of-the-simulation"><span class="toc-number">1.</span> <span class="toc-text">Steps of the simulation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GenerateRandomBits"><span class="toc-number">1.1.</span> <span class="toc-text">GenerateRandomBits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ModulateData"><span class="toc-number">1.2.</span> <span class="toc-text">ModulateData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SimulateChannel"><span class="toc-number">1.3.</span> <span class="toc-text">SimulateChannel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DemodulateSignal"><span class="toc-number">1.4.</span> <span class="toc-text">DemodulateSignal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CountErrors"><span class="toc-number">1.5.</span> <span class="toc-text">CountErrors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Theoretical-BER"><span class="toc-number">2.</span> <span class="toc-text">Theoretical BER</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plot-Results"><span class="toc-number">3.</span> <span class="toc-text">Plot Results</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blacklarks.github.io/2025/02/14/Communication-simulation/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&text=Digital Communication System Simulation (QPSK)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&is_video=false&description=Digital Communication System Simulation (QPSK)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Digital Communication System Simulation (QPSK)&body=Check out this article: https://blacklarks.github.io/2025/02/14/Communication-simulation/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&title=Digital Communication System Simulation (QPSK)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blacklarks.github.io/2025/02/14/Communication-simulation/&name=Digital Communication System Simulation (QPSK)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blacklarks.github.io/2025/02/14/Communication-simulation/&t=Digital Communication System Simulation (QPSK)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024-2025
+    Laurent
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Blogs</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/blackLarks">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
